@@ -243,13 +243,60 @@ class SugarcCodeGenerator:
         if not ctx:
             return ""
 
-        return f"""{{{
-            str.join(
-                "",
-                map(cls.gen_stmt, cls.children_filter(SugarcParser.StmtContext, ctx)),
-            )
-        }}}"""
+        stmts = cls.children_filter(SugarcParser.StmtContext, ctx)
+
+        return f"{{\n{str.join('\n', map(cls.gen_stmt, stmts))}\n}}"
 
     @classmethod
     def gen_expr(cls, ctx: SugarcParser.ExprContext):
-        return ctx.getText()
+        if not ctx:
+            return ""
+        match type(ctx):
+            case SugarcParser.ObjectInstantiationContext:
+                class_name = ctx.getChild(1).getText()
+                class_metadata = SugarcMetadata.get_class_metadata(class_name)
+                constructor_params = cls.gen_expr_list(
+                    SugarcParser.ObjectInstantiationContext.exprList(ctx)
+                )
+                return f"{class_metadata.constructor}({constructor_params})"
+            case SugarcParser.FunctionCallContext:
+                function_name = ctx.getChild(0).getText()
+
+                function_params = cls.gen_expr_list(
+                    SugarcParser.FunctionCallContext.exprList(ctx)
+                )
+                return f"{function_name}({function_params})"
+            case SugarcParser.AddSubExprContext:
+                left_exp = cls.gen_expr(ctx.getChild(0))
+                operator = ctx.getChild(1).getText()
+                right_exp = cls.gen_expr(ctx.getChild(2))
+
+                return f"{left_exp} {operator} {right_exp}"
+
+            case SugarcParser.MulDivExprContext:
+                left_exp = cls.gen_expr(ctx.getChild(0))
+                operator = ctx.getChild(1).getText()
+                right_exp = cls.gen_expr(ctx.getChild(2))
+
+                return f"{left_exp} {operator} {right_exp}"
+
+            case SugarcParser.VarReferenceContext:
+                return ctx.getText()
+
+            case SugarcParser.LiteralExprContext:
+                return ctx.getText()
+            case _:
+                raise RuntimeError(f"Invalid expression: '{ctx.getText()}'")
+
+    @classmethod
+    def gen_expr_list(cls, ctx: SugarcParser.ExprListContext):
+        if not ctx:
+            return ""
+
+        return str.join(
+            ",",
+            map(
+                cls.gen_expr,
+                SugarcCodeGenerator.children_filter(SugarcParser.ExprContext, ctx),
+            ),
+        )
