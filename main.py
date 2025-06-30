@@ -13,7 +13,7 @@ def main():
     input_file = sys.argv[1]
 
     # Create a lexer that feeds off the input file
-    lexer = SugarcLexer(FileStream(input_file))
+    lexer = SugarcLexer(FileStream(input_file, encoding="utf-8"))
 
     # Create a token stream from the lexer
     token_stream = CommonTokenStream(lexer)
