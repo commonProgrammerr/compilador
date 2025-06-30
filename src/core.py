@@ -1,4 +1,5 @@
 from dataclasses import dataclass, field
+from typing import Optional
 from antlr4 import ParserRuleContext
 from runtime.SugarcParser import SugarcParser, ErrorNode
 from sys import stderr
@@ -7,11 +8,10 @@ from sys import stderr
 @dataclass
 class ClassMetadata:
     name: str
-    size: int  # size in bytes of class object
     attributes: dict[str, str]  # key: attribute name, value: attribute type
     methods: list[str] = field(default_factory=list)
     constructor: str = field(default_factory=str)
-    extends: "ClassMetadata" | None = field(default=None)
+    inherence: Optional["ClassMetadata"] = field(default=None)
 
 
 class SugarcMetadata:
@@ -27,24 +27,24 @@ class SugarcMetadata:
     @classmethod
     def get_class_metadata(cls, class_name: str) -> ClassMetadata:
         if class_name not in cls.classes_metadata:
-            raise RuntimeError(f"Class {class_name} not found")
+            raise RuntimeError("Class %s not found", class_name)
 
         return cls.classes_metadata[class_name]
 
+    @classmethod
     def create_class_metadata(cls, ctx: SugarcParser.ClassDeclContext):
         class_name = f"{ctx.getChild(1).getText()}"
 
         if class_name in cls.classes_metadata:
             raise RuntimeError("Class %s already exists!", class_name)
 
-        class_attrs = {
-            field.getChild(1).getText(): field.getChild(2).getText()
-            for field in SugarcCodeGenerator.children_filter(
-                SugarcParser.FieldContext, ctx
-            )
-        }
+        fields: filter[SugarcParser.FieldContext] = SugarcCodeGenerator.children_filter(
+            SugarcParser.FieldContext, ctx
+        )
 
-        class_size = sum(map(cls.type_sizes.get, class_attrs.values()))
+        class_attrs = {
+            field.getChild(1).getText(): field.getChild(0).getText() for field in fields
+        }
 
         class_methods = [
             method_ctx.getChild(1).getText()
@@ -56,12 +56,11 @@ class SugarcMetadata:
         class_metadata = ClassMetadata(
             name=class_name,
             attributes=class_attrs,
-            size=class_size,
             methods=class_methods,
         )
 
         if class_extends := ctx.classInherence():
-            class_metadata.extends = cls.get_class_metadata(
+            class_metadata.inherence = cls.get_class_metadata(
                 class_extends.getChild(1).getText()
             )
 
@@ -143,42 +142,67 @@ class SugarcCodeGenerator:
         var_value = cls.gen_expr(ctx.expr())
         return f"{var_type} {var_name} = {var_value};"
 
-        class_constructor_block = (
-            f"{{{str.join('', [f'this->{attr} = {attr};' for attr in attrs_names])}}}"
+    @classmethod
+    def gen_class_constructor(cls, class_metadata: ClassMetadata):
+        alloc_object = f"{class_metadata.name}* this = ({class_metadata.name}*)  malloc(sizeof({class_metadata.name}));"
+        assign_attr = "".join(
+            f"this->{attr} = {attr};" for attr in class_metadata.attributes.keys()
         )
 
-        class_constructor = f"{class_name}_constructor ({class_name}* this, {class_attrs}) {class_constructor_block}"
+        class_constructor_block = f"{{{alloc_object}{assign_attr} return this;}}"
+        constructor_params = ",".join(
+            f"{type} {name}" for name, type in class_metadata.attributes.items()
+        )
+        constructor_head = (
+            f"{class_metadata.name}* {class_metadata.constructor}({constructor_params})"
+        )
 
-        return (class_name, class_attrs, class_constructor)
+        return f"{constructor_head}{class_constructor_block}"
 
     @classmethod
-    def gen_class_decl(cls, ctx: SugarcParser.Class_declContext):
-        class_name, class_attrs, class_constructor = cls.gen_class_base(ctx)
-
+    def gen_class_decl(cls, ctx: SugarcParser.ClassDeclContext):
+        metadata = SugarcMetadata.create_class_metadata(ctx)
+        class_constructor = cls.gen_class_constructor(metadata)
         class_methods = str.join(
             "\n",
             map(
-                lambda child: cls.gen_method(child, class_name),
+                lambda child: cls.gen_method(child, metadata.name),
                 cls.children_filter(SugarcParser.MethodContext, ctx),
             ),
         )
 
-        # class_attr = e.g
-        out = "struct %(class_name)s {%(class_attrs)s};"
-        print(
-            out
+        class_structure = (
+            "typedef struct {%(class_inherence)s%(class_attrs)s} %(class_name)s;"
             % {
-                "class_name": class_name,
-                "class_attrs": class_attrs,
+                "class_inherence": f"struct {metadata.inherence.name} super;"
+                if metadata.inherence
+                else "",
+                "class_name": metadata.name,
+                "class_attrs": ";".join(
+                    f"{type} {name}" for name, type in metadata.attributes.items()
+                ),
             }
         )
-        print(class_constructor)
-        print(class_methods)
-        pass
+        return f"{class_structure}\n{class_constructor}\n{class_methods}"
+
+    @classmethod
+    def gen_type(cls, ctx: SugarcParser.TypeContext):
+        type_string = ctx.getText()
+
+        if type_string == "string":
+            type_string = "char*"
+
+        if type_string in SugarcMetadata.type_sizes:
+            return type_string
+
+        if class_metadata := SugarcMetadata.get_class_metadata(type_string):
+            type_string = f"{class_metadata.name}*"
+
+        return type_string
 
     @classmethod
     def gen_field(cls, ctx: SugarcParser.FieldContext):
-        field_type = ctx.getChild(0).getText()
+        field_type = cls.gen_type(ctx.getChild(0))
         field_name = ctx.getChild(1).getText()
         return f"{field_type} {field_name}"
 
@@ -201,7 +225,7 @@ class SugarcCodeGenerator:
 
     @classmethod
     def gen_param(cls, ctx: SugarcParser.ParamsContext):
-        param_type = ctx.getChild(0).getText()
+        param_type = cls.gen_type(ctx.getChild(0))
         param_name = ctx.getChild(1).getText()
 
         return f"{param_type} {param_name}"
