@@ -78,8 +78,15 @@ class SugarcCodeGenerator:
     type_func = {
         SugarcParser.ProgramContext.__name__: "gen_program",
         SugarcParser.StmtContext.__name__: "gen_stmt",
-        SugarcParser.Class_declContext.__name__: "gen_class_decl",
+        SugarcParser.VarDeclContext.__name__: "gen_var_decl",
+        SugarcParser.ClassDeclContext.__name__: "gen_class_decl",
+        ErrorNode.__name__: "sintax_error",
     }
+
+    @classmethod
+    def sintax_error(ctx: ErrorNode):
+        print(ctx, file=stderr)
+        return ""
 
     @classmethod
     def children_filter(cls, child_type: type, ctx: ParserRuleContext):
@@ -88,14 +95,13 @@ class SugarcCodeGenerator:
         return filter(lambda child: isinstance(child, child_type), ctx.children)
 
     @classmethod
-    def gen(cls, ctx):
+    def gen(cls, ctx: ParserRuleContext):
         ctx_type = type(ctx)
         try:
             generator = getattr(cls, cls.type_func[ctx_type.__name__])
             return generator and generator(ctx)
         except KeyError:
-            print("skipping token: %s", type(ctx))
-            pass
+            print("skipping token:", ctx.getText(), file=stderr)
 
     @classmethod
     def gen_program(cls, ctx: SugarcParser.ProgramContext):
