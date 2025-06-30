@@ -1,19 +1,23 @@
 grammar Sugarc;
 
-program: (stmt | class_decl | function_decl)* EOF;
+program: (varDecl | classDecl | functionDecl)* EOF;
 
-class_decl: 
-    'class' ID ('extends' ID)? 
+classDecl: 
+    'class' ID (classInherence)? 
     '{' (field | method)* 
     '}'
 ;
 
-function_decl: 
+classInherence:
+    'extends' ID
+;
+
+functionDecl: 
     (type | 'void') ID '(' params? ')' block
 ;
 
 field: 
-    type ID ';' 
+    type ID ('=' expr)? ';' 
 ;
 
 method: 
@@ -36,37 +40,41 @@ type:
     | ID 
 ;
 
-var_decl: 
+varDecl: 
     type ID ('=' expr)? ';' 
 ;
 
-if_stmt: 
+ifStmt: 
     'if' '(' expr ')' block ('else' block)?
 ;
 
-while_stmt: 
+whileStmt: 
     'while' '(' expr ')' block
 ;
 
-for_stmt: 
-    'for' '(' (var_decl | expr ';')? expr? ';' expr? ')' block
+forStmt: 
+    'for' '(' (varDecl | expr ';')? expr? ';' expr? ')' block
 ;
 
-for_each_stmt: 
+forEachStmt: 
     'for' '(' type ID ':' expr ')' block
 ;
 
+controlStmt:
+    'break' ';'           # breakStmt
+    | 'continue' ';'      # continueStmt
+    | 'return' expr? ';'  # returnStmt
+;
+
 stmt: 
-    var_decl 
+    varDecl 
     | expr ';' 
-    | if_stmt
-    | while_stmt
-    | for_stmt
-    | for_each_stmt
+    | ifStmt
+    | whileStmt
+    | forStmt
+    | forEachStmt
     | block
-    | 'break' ';'           //# break_stmt
-    | 'continue' ';'        //# continue_stmt
-    | 'return' expr? ';'    //# return_stmt
+    | controlStmt
 ;
 
 block: 
@@ -74,27 +82,29 @@ block:
 ;
 
 expr: 
-    expr '.' ID                          # member_access
-    | expr '.' ID '(' expr_list? ')'     # method_call
-    | 'new' ID '(' expr_list? ')'        # object_instantiation
-    | ID '(' expr_list? ')'              # function_call
-    | 'this'                             # this_reference
-    | 'super' '(' expr_list? ')'         # super_call
-    | expr '[' expr ']'                  # array_access
-    | '!' expr                           # not_expr
-    | expr op=('*'|'/') expr             # mul_div_expr
-    | expr op=('+'|'-') expr             # add_sub_expr
-    | expr op=('<'|'>'|'<='|'>=') expr   # relational_expr
-    | expr op=('=='|'!=') expr           # equality_expr
-    | expr '&&' expr                     # and_expr
-    | expr '||' expr                     # or_expr
+    expr '.' ID                          # memberAccess
+    | expr '.' ID '(' exprList? ')'      # methodCall
+    | 'new' ID '(' exprList? ')'         # objectInstantiation
+    | ID '(' exprList? ')'               # functionCall
+    | 'this'                             # thisReference
+    | 'super' '(' exprList? ')'          # superCall
+    | expr '[' expr ']'                  # arrayAccess
+    | '!' expr                           # notExpr
+    | expr op=('*'|'/') expr             # mulDivExpr
+    | expr op=('+'|'-') expr             # addSubExpr
+    | expr op=('<'|'>'|'<='|'>=') expr   # relationalExpr
+    | expr op=('=='|'!=') expr           # equalityExpr
+    | expr '&&' expr                     # andExpr
+    | expr '||' expr                     # orExpr
     | ID '=' expr                        # assignment
-    | literal                            # literal_expr
-    | ID                                 # var_reference
-    | '(' expr ')'                       # grouped_expr
+    | literal                            # literalExpr
+    // | ID '++'                           # VarIncrement
+    // | ID '--'                           # VarDecrement
+    | ID                                 #VarReference
+    | '(' expr ')'                       #GroupedExpr
 ;
 
-expr_list: 
+exprList: 
     expr (',' expr)* 
 ;
 

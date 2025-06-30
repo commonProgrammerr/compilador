@@ -17,21 +17,30 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#class_decl.
-    def enterClass_decl(self, ctx:SugarcParser.Class_declContext):
+    # Enter a parse tree produced by SugarcParser#classDecl.
+    def enterClassDecl(self, ctx:SugarcParser.ClassDeclContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#class_decl.
-    def exitClass_decl(self, ctx:SugarcParser.Class_declContext):
+    # Exit a parse tree produced by SugarcParser#classDecl.
+    def exitClassDecl(self, ctx:SugarcParser.ClassDeclContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#function_decl.
-    def enterFunction_decl(self, ctx:SugarcParser.Function_declContext):
+    # Enter a parse tree produced by SugarcParser#classInherence.
+    def enterClassInherence(self, ctx:SugarcParser.ClassInherenceContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#function_decl.
-    def exitFunction_decl(self, ctx:SugarcParser.Function_declContext):
+    # Exit a parse tree produced by SugarcParser#classInherence.
+    def exitClassInherence(self, ctx:SugarcParser.ClassInherenceContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#functionDecl.
+    def enterFunctionDecl(self, ctx:SugarcParser.FunctionDeclContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#functionDecl.
+    def exitFunctionDecl(self, ctx:SugarcParser.FunctionDeclContext):
         pass
 
 
@@ -80,48 +89,75 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#var_decl.
-    def enterVar_decl(self, ctx:SugarcParser.Var_declContext):
+    # Enter a parse tree produced by SugarcParser#varDecl.
+    def enterVarDecl(self, ctx:SugarcParser.VarDeclContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#var_decl.
-    def exitVar_decl(self, ctx:SugarcParser.Var_declContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#if_stmt.
-    def enterIf_stmt(self, ctx:SugarcParser.If_stmtContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#if_stmt.
-    def exitIf_stmt(self, ctx:SugarcParser.If_stmtContext):
+    # Exit a parse tree produced by SugarcParser#varDecl.
+    def exitVarDecl(self, ctx:SugarcParser.VarDeclContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#while_stmt.
-    def enterWhile_stmt(self, ctx:SugarcParser.While_stmtContext):
+    # Enter a parse tree produced by SugarcParser#ifStmt.
+    def enterIfStmt(self, ctx:SugarcParser.IfStmtContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#while_stmt.
-    def exitWhile_stmt(self, ctx:SugarcParser.While_stmtContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#for_stmt.
-    def enterFor_stmt(self, ctx:SugarcParser.For_stmtContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#for_stmt.
-    def exitFor_stmt(self, ctx:SugarcParser.For_stmtContext):
+    # Exit a parse tree produced by SugarcParser#ifStmt.
+    def exitIfStmt(self, ctx:SugarcParser.IfStmtContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#for_each_stmt.
-    def enterFor_each_stmt(self, ctx:SugarcParser.For_each_stmtContext):
+    # Enter a parse tree produced by SugarcParser#whileStmt.
+    def enterWhileStmt(self, ctx:SugarcParser.WhileStmtContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#for_each_stmt.
-    def exitFor_each_stmt(self, ctx:SugarcParser.For_each_stmtContext):
+    # Exit a parse tree produced by SugarcParser#whileStmt.
+    def exitWhileStmt(self, ctx:SugarcParser.WhileStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#forStmt.
+    def enterForStmt(self, ctx:SugarcParser.ForStmtContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#forStmt.
+    def exitForStmt(self, ctx:SugarcParser.ForStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#forEachStmt.
+    def enterForEachStmt(self, ctx:SugarcParser.ForEachStmtContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#forEachStmt.
+    def exitForEachStmt(self, ctx:SugarcParser.ForEachStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#breakStmt.
+    def enterBreakStmt(self, ctx:SugarcParser.BreakStmtContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#breakStmt.
+    def exitBreakStmt(self, ctx:SugarcParser.BreakStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#continueStmt.
+    def enterContinueStmt(self, ctx:SugarcParser.ContinueStmtContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#continueStmt.
+    def exitContinueStmt(self, ctx:SugarcParser.ContinueStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#returnStmt.
+    def enterReturnStmt(self, ctx:SugarcParser.ReturnStmtContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#returnStmt.
+    def exitReturnStmt(self, ctx:SugarcParser.ReturnStmtContext):
         pass
 
 
@@ -143,48 +179,21 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#grouped_expr.
-    def enterGrouped_expr(self, ctx:SugarcParser.Grouped_exprContext):
+    # Enter a parse tree produced by SugarcParser#memberAccess.
+    def enterMemberAccess(self, ctx:SugarcParser.MemberAccessContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#grouped_expr.
-    def exitGrouped_expr(self, ctx:SugarcParser.Grouped_exprContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#relational_expr.
-    def enterRelational_expr(self, ctx:SugarcParser.Relational_exprContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#relational_expr.
-    def exitRelational_expr(self, ctx:SugarcParser.Relational_exprContext):
+    # Exit a parse tree produced by SugarcParser#memberAccess.
+    def exitMemberAccess(self, ctx:SugarcParser.MemberAccessContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#function_call.
-    def enterFunction_call(self, ctx:SugarcParser.Function_callContext):
+    # Enter a parse tree produced by SugarcParser#addSubExpr.
+    def enterAddSubExpr(self, ctx:SugarcParser.AddSubExprContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#function_call.
-    def exitFunction_call(self, ctx:SugarcParser.Function_callContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#this_reference.
-    def enterThis_reference(self, ctx:SugarcParser.This_referenceContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#this_reference.
-    def exitThis_reference(self, ctx:SugarcParser.This_referenceContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#array_access.
-    def enterArray_access(self, ctx:SugarcParser.Array_accessContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#array_access.
-    def exitArray_access(self, ctx:SugarcParser.Array_accessContext):
+    # Exit a parse tree produced by SugarcParser#addSubExpr.
+    def exitAddSubExpr(self, ctx:SugarcParser.AddSubExprContext):
         pass
 
 
@@ -197,120 +206,147 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#mul_div_expr.
-    def enterMul_div_expr(self, ctx:SugarcParser.Mul_div_exprContext):
+    # Enter a parse tree produced by SugarcParser#objectInstantiation.
+    def enterObjectInstantiation(self, ctx:SugarcParser.ObjectInstantiationContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#mul_div_expr.
-    def exitMul_div_expr(self, ctx:SugarcParser.Mul_div_exprContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#object_instantiation.
-    def enterObject_instantiation(self, ctx:SugarcParser.Object_instantiationContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#object_instantiation.
-    def exitObject_instantiation(self, ctx:SugarcParser.Object_instantiationContext):
+    # Exit a parse tree produced by SugarcParser#objectInstantiation.
+    def exitObjectInstantiation(self, ctx:SugarcParser.ObjectInstantiationContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#method_call.
-    def enterMethod_call(self, ctx:SugarcParser.Method_callContext):
+    # Enter a parse tree produced by SugarcParser#orExpr.
+    def enterOrExpr(self, ctx:SugarcParser.OrExprContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#method_call.
-    def exitMethod_call(self, ctx:SugarcParser.Method_callContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#super_call.
-    def enterSuper_call(self, ctx:SugarcParser.Super_callContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#super_call.
-    def exitSuper_call(self, ctx:SugarcParser.Super_callContext):
+    # Exit a parse tree produced by SugarcParser#orExpr.
+    def exitOrExpr(self, ctx:SugarcParser.OrExprContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#not_expr.
-    def enterNot_expr(self, ctx:SugarcParser.Not_exprContext):
+    # Enter a parse tree produced by SugarcParser#relationalExpr.
+    def enterRelationalExpr(self, ctx:SugarcParser.RelationalExprContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#not_expr.
-    def exitNot_expr(self, ctx:SugarcParser.Not_exprContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#add_sub_expr.
-    def enterAdd_sub_expr(self, ctx:SugarcParser.Add_sub_exprContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#add_sub_expr.
-    def exitAdd_sub_expr(self, ctx:SugarcParser.Add_sub_exprContext):
+    # Exit a parse tree produced by SugarcParser#relationalExpr.
+    def exitRelationalExpr(self, ctx:SugarcParser.RelationalExprContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#and_expr.
-    def enterAnd_expr(self, ctx:SugarcParser.And_exprContext):
+    # Enter a parse tree produced by SugarcParser#thisReference.
+    def enterThisReference(self, ctx:SugarcParser.ThisReferenceContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#and_expr.
-    def exitAnd_expr(self, ctx:SugarcParser.And_exprContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#member_access.
-    def enterMember_access(self, ctx:SugarcParser.Member_accessContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#member_access.
-    def exitMember_access(self, ctx:SugarcParser.Member_accessContext):
+    # Exit a parse tree produced by SugarcParser#thisReference.
+    def exitThisReference(self, ctx:SugarcParser.ThisReferenceContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#or_expr.
-    def enterOr_expr(self, ctx:SugarcParser.Or_exprContext):
+    # Enter a parse tree produced by SugarcParser#notExpr.
+    def enterNotExpr(self, ctx:SugarcParser.NotExprContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#or_expr.
-    def exitOr_expr(self, ctx:SugarcParser.Or_exprContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#literal_expr.
-    def enterLiteral_expr(self, ctx:SugarcParser.Literal_exprContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#literal_expr.
-    def exitLiteral_expr(self, ctx:SugarcParser.Literal_exprContext):
+    # Exit a parse tree produced by SugarcParser#notExpr.
+    def exitNotExpr(self, ctx:SugarcParser.NotExprContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#var_reference.
-    def enterVar_reference(self, ctx:SugarcParser.Var_referenceContext):
+    # Enter a parse tree produced by SugarcParser#VarReference.
+    def enterVarReference(self, ctx:SugarcParser.VarReferenceContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#var_reference.
-    def exitVar_reference(self, ctx:SugarcParser.Var_referenceContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#equality_expr.
-    def enterEquality_expr(self, ctx:SugarcParser.Equality_exprContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#equality_expr.
-    def exitEquality_expr(self, ctx:SugarcParser.Equality_exprContext):
+    # Exit a parse tree produced by SugarcParser#VarReference.
+    def exitVarReference(self, ctx:SugarcParser.VarReferenceContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#expr_list.
-    def enterExpr_list(self, ctx:SugarcParser.Expr_listContext):
+    # Enter a parse tree produced by SugarcParser#functionCall.
+    def enterFunctionCall(self, ctx:SugarcParser.FunctionCallContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#expr_list.
-    def exitExpr_list(self, ctx:SugarcParser.Expr_listContext):
+    # Exit a parse tree produced by SugarcParser#functionCall.
+    def exitFunctionCall(self, ctx:SugarcParser.FunctionCallContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#literalExpr.
+    def enterLiteralExpr(self, ctx:SugarcParser.LiteralExprContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#literalExpr.
+    def exitLiteralExpr(self, ctx:SugarcParser.LiteralExprContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#superCall.
+    def enterSuperCall(self, ctx:SugarcParser.SuperCallContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#superCall.
+    def exitSuperCall(self, ctx:SugarcParser.SuperCallContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#arrayAccess.
+    def enterArrayAccess(self, ctx:SugarcParser.ArrayAccessContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#arrayAccess.
+    def exitArrayAccess(self, ctx:SugarcParser.ArrayAccessContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#mulDivExpr.
+    def enterMulDivExpr(self, ctx:SugarcParser.MulDivExprContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#mulDivExpr.
+    def exitMulDivExpr(self, ctx:SugarcParser.MulDivExprContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#GroupedExpr.
+    def enterGroupedExpr(self, ctx:SugarcParser.GroupedExprContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#GroupedExpr.
+    def exitGroupedExpr(self, ctx:SugarcParser.GroupedExprContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#equalityExpr.
+    def enterEqualityExpr(self, ctx:SugarcParser.EqualityExprContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#equalityExpr.
+    def exitEqualityExpr(self, ctx:SugarcParser.EqualityExprContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#andExpr.
+    def enterAndExpr(self, ctx:SugarcParser.AndExprContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#andExpr.
+    def exitAndExpr(self, ctx:SugarcParser.AndExprContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#methodCall.
+    def enterMethodCall(self, ctx:SugarcParser.MethodCallContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#methodCall.
+    def exitMethodCall(self, ctx:SugarcParser.MethodCallContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#exprList.
+    def enterExprList(self, ctx:SugarcParser.ExprListContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#exprList.
+    def exitExprList(self, ctx:SugarcParser.ExprListContext):
         pass
 
 
