@@ -1,5 +1,71 @@
+from dataclasses import dataclass, field
 from antlr4 import ParserRuleContext
-from runtime.SugarcParser import SugarcParser
+from runtime.SugarcParser import SugarcParser, ErrorNode
+from sys import stderr
+
+
+@dataclass
+class ClassMetadata:
+    name: str
+    size: int  # size in bytes of class object
+    attributes: dict[str, str]  # key: attribute name, value: attribute type
+    methods: list[str] = field(default_factory=list)
+    constructor: str = field(default_factory=str)
+    extends: "ClassMetadata" | None = field(default=None)
+
+
+class SugarcMetadata:
+    type_sizes = {"int": 4, "float": 4, "bool": 1, "char*": 8}
+    classes_metadata = dict()
+
+    @classmethod
+    def save_class_metadata(cls, class_metadata: ClassMetadata):
+        cls.classes_metadata[class_metadata.name] = class_metadata
+
+        return class_metadata
+
+    @classmethod
+    def get_class_metadata(cls, class_name: str) -> ClassMetadata:
+        if class_name not in cls.classes_metadata:
+            raise RuntimeError(f"Class {class_name} not found")
+
+        return cls.classes_metadata[class_name]
+
+    def create_class_metadata(cls, ctx: SugarcParser.ClassDeclContext):
+        class_name = f"{ctx.getChild(1).getText()}"
+
+        if class_name in cls.classes_metadata:
+            raise RuntimeError("Class %s already exists!", class_name)
+
+        class_attrs = {
+            field.getChild(1).getText(): field.getChild(2).getText()
+            for field in SugarcCodeGenerator.children_filter(
+                SugarcParser.FieldContext, ctx
+            )
+        }
+
+        class_size = sum(map(cls.type_sizes.get, class_attrs.values()))
+
+        class_methods = [
+            method_ctx.getChild(1).getText()
+            for method_ctx in SugarcCodeGenerator.children_filter(
+                SugarcParser.MethodContext, ctx
+            )
+        ]
+
+        class_metadata = ClassMetadata(
+            name=class_name,
+            attributes=class_attrs,
+            size=class_size,
+            methods=class_methods,
+        )
+
+        if class_extends := ctx.classInherence():
+            class_metadata.extends = cls.get_class_metadata(
+                class_extends.getChild(1).getText()
+            )
+
+        return cls.save_class_metadata(class_metadata)
 
 
 class SugarcCodeGenerator:
