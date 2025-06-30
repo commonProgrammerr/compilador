@@ -80,7 +80,12 @@ class SugarcCodeGenerator:
         SugarcParser.VarDeclContext.__name__: "gen_var_decl",
         SugarcParser.ClassDeclContext.__name__: "gen_class_decl",
         ErrorNode.__name__: "sintax_error",
+        "TerminalNodeImpl": "_ignore",
     }
+
+    @classmethod
+    def _ignore(cls, _):
+        return ""
 
     @classmethod
     def sintax_error(ctx: ErrorNode):
