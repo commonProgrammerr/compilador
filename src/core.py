@@ -112,18 +112,36 @@ class SugarcCodeGenerator:
     def gen_stmt(cls, ctx: SugarcParser.StmtContext):
         if ctx.expr():
             return cls.gen_expr(ctx.expr())
+        if ctx.varDecl():
+            return cls.gen_var_decl(ctx.varDecl())
+        if ctx.controlStmt():
+            return cls.gen_control_stmt(ctx.controlStmt())
         else:
             return ctx.getText()
 
     @classmethod
-    def gen_class_base(cls, ctx: SugarcParser.Class_declContext):
-        class_name = f"{ctx.getChild(1).getText()}_class"
-        class_attrs = str.join(
-            ",",
-            map(cls.gen_field, cls.children_filter(SugarcParser.FieldContext, ctx)),
-        )
+    def gen_control_stmt(cls, ctx: SugarcParser.ControlStmtContext):
+        match type(ctx):
+            case SugarcParser.BreakStmtContext:
+                return ctx.getText()
+            case SugarcParser.ContinueStmtContext:
+                return ctx.getText()
+            case SugarcParser.ReturnStmtContext:
+                if return_val := SugarcParser.ReturnStmtContext.expr(ctx):
+                    return f"return {cls.gen_expr(return_val)};"
+                return "return;"
+            case _:
+                raise RuntimeError("Unknown command: %s", ctx.getText())
 
-        attrs_names = [attr.split(" ")[1] for attr in class_attrs.split(",")]
+    @classmethod
+    def gen_var_decl(cls, ctx: SugarcParser.VarDeclContext):
+        var_type = cls.gen_type(ctx.type_())
+        var_name = ctx.ID().getText()
+        if not ctx.expr():
+            return f"{var_type} {var_name};"
+
+        var_value = cls.gen_expr(ctx.expr())
+        return f"{var_type} {var_name} = {var_value};"
 
         class_constructor_block = (
             f"{{{str.join('', [f'this->{attr} = {attr};' for attr in attrs_names])}}}"
