@@ -4,12 +4,15 @@ program: (varDecl | classDecl | functionDecl)* EOF;
 
 classDecl: 
     'class' ID (classInherence)? 
-    '{' (field | method)* 
-    '}'
+    '{' (field | classContructor | method)* '}'
 ;
 
 classInherence:
     'extends' ID
+;
+
+classContructor: 
+    'constructor' '(' params? ')' block
 ;
 
 functionDecl: 

@@ -35,6 +35,15 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SugarcParser#classContruction.
+    def enterClassContruction(self, ctx:SugarcParser.ClassContructionContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#classContruction.
+    def exitClassContruction(self, ctx:SugarcParser.ClassContructionContext):
+        pass
+
+
     # Enter a parse tree produced by SugarcParser#functionDecl.
     def enterFunctionDecl(self, ctx:SugarcParser.FunctionDeclContext):
         pass

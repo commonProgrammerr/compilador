@@ -1,17 +1,17 @@
-from dataclasses import dataclass, field
+from pydantic import BaseModel, Field
 from typing import Optional
 from antlr4 import ParserRuleContext
 from runtime.SugarcParser import SugarcParser, ErrorNode
 from sys import stderr
+from secrets import token_hex
 
 
-@dataclass
-class ClassMetadata:
+class ClassMetadata(BaseModel):
     name: str
     attributes: dict[str, str]  # key: attribute name, value: attribute type
-    methods: list[str] = field(default_factory=list)
-    constructor: str = field(default_factory=str)
-    inherence: Optional["ClassMetadata"] = field(default=None)
+    methods: list[str] = Field(default_factory=list)
+    constructor: str = Field(default_factory=str)
+    inherence: Optional["ClassMetadata"] = Field(default=None)
 
 
 class SugarcMetadata:
@@ -19,8 +19,8 @@ class SugarcMetadata:
     classes_metadata = dict()
 
     @classmethod
-    def save_class_metadata(cls, class_metadata: ClassMetadata):
-        cls.classes_metadata[class_metadata.name] = class_metadata
+    def save_class_metadata(cls, class_name, class_metadata: ClassMetadata):
+        cls.classes_metadata[class_name] = class_metadata
 
         return class_metadata
 
@@ -54,7 +54,7 @@ class SugarcMetadata:
         ]
 
         class_metadata = ClassMetadata(
-            name=class_name,
+            name=f"{class_name}_{token_hex(6)}",
             attributes=class_attrs,
             methods=class_methods,
         )
@@ -64,13 +64,14 @@ class SugarcMetadata:
                 class_extends.getChild(1).getText()
             )
 
-        return cls.save_class_metadata(class_metadata)
+        return cls.save_class_metadata(class_name, class_metadata)
 
 
 class SugarcCodeGenerator:
     """
     A class to generate C code from a Sugarc program context.
-    This class contains methods to traverse the program context and generate C code.rn f"""
+    This class contains methods to traverse the program context and generate C code.rn f
+    """
 
     output = ""
 
@@ -179,9 +180,11 @@ class SugarcCodeGenerator:
         class_structure = (
             "typedef struct {%(class_inherence)s%(class_attrs)s} %(class_name)s;"
             % {
-                "class_inherence": f"struct {metadata.inherence.name} super;"
-                if metadata.inherence
-                else "",
+                "class_inherence": (
+                    f"struct {metadata.inherence.name} super;"
+                    if metadata.inherence
+                    else ""
+                ),
                 "class_name": metadata.name,
                 "class_attrs": ";".join(
                     f"{type} {name}" for name, type in metadata.attributes.items()
