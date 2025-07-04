@@ -1,4 +1,4 @@
-# Projeto da disciplina de Compiladores (2025.1) da Universidade de Pernambuco - Compilador Sugarc para C
+# Projeto da disciplina de Compiladores (2025.1) da Universidade de Pernambuco - Sugarc
 
 Este projeto é um compilador para **Sugarc**, uma linguagem de programação simples e orientada a objetos. Ele converte o código-fonte escrito em Sugarc para a linguagem **C**.
 
@@ -40,3 +40,12 @@ void main() {
     - SugarcMetadata: Uma classe responsável por coletar e armazenar metadados sobre as classes Sugarc (atributos, métodos, herança) durante a análise.
 
     - SugarcCodeGenerator: A classe que percorre a árvore de análise do ANTLR e, usando os metadados coletados, traduz as estruturas da linguagem Sugarc para o código C equivalente.
+
+## Para Rodar o Projeto:
+
+*texto referente ao que o professor deve escrever para rodar o código*
+
+## Grupo
+
+- André Escorel
+- Eduardo Távora
