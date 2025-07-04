@@ -43,7 +43,21 @@ void main() {
 
 ## Para Rodar o Projeto:
 
-*texto referente ao que o professor deve escrever para rodar o código*
+### Dependências
+
+- ANTLR4 v4.13.2 com Python
+
+#### Execute
+```python
+pip install antlr4-python3-runtime
+```
+- Python v3.12
+- JDK v1.1.0
+
+### Forma utilizando o uv
+```
+uv sync; uv run main.py <path_do_arquivo>
+```
 
 ## Grupo
 
