@@ -1,32 +1,58 @@
 grammar Sugarc;
 
-program: (varDecl | classDecl | functionDecl)* EOF;
+program: (PREPROCESSOR | varDecl | classDecl | functionDecl)* EOF;
 
+// Declarações de classes, funções e variáveis
 classDecl: 
     'class' ID (classInherence)? 
-    '{' (field | classContructor | method)* '}'
+    '{' (classAttrDecl | methodDecl | classContructorDecl)* '}'
 ;
 
 classInherence:
     'extends' ID
 ;
 
-classContructor: 
+// Declarações de construtores de classe
+classContructorDecl: 
     'constructor' '(' params? ')' block
 ;
 
+// Declarações de métodos
+methodDecl: 
+    type ID '(' params? ')' block
+;
+
+// declarações de atributos de classe
+classAttrDecl: 
+    type ID ';'                             # attributeDeclaration
+    | type ID '[' size=INT? ']' ';'         # arrayAttributeDeclaration
+;
+
+// declarações de funções
 functionDecl: 
-    (type | 'void') ID '(' params? ')' block
+    type ID '(' params? ')' block
 ;
 
-field: 
-    type ID ('=' expr)? ';' 
+/* Declarações de variáveis
+
+Variáveis podem ser declaradas dentro de funções, classes ou globalmente,
+podem ser de tipos primitivos, arrays ou objetos, podem ser inicializadas.
+*/
+varDecl: 
+    type ID ('=' expr)? ';'                          # variableDeclaration
+    // | type ID ('=' expr)? ',' varDecl               # multipleVariableDeclaration
+    | type ID '[' size=INT? ']' ';'                       # arrayDeclaration
+    | type ID '[' size=INT ']' '=' '{' exprList? '}' ';'  # arrayInitialization
 ;
 
-method: 
-    (type | 'void') ID '(' params? ')' block
+// Declarações de tipos
+typdefDecl: 
+    'typedef' type ID ';'
 ;
 
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+// declarações de parâmetros para funções e construtores
 params: 
     param (',' param)* 
 ;
@@ -36,31 +62,35 @@ param:
 ;
 
 type: 
-    'int' 
-    | 'string' 
-    | 'bool' 
-    | 'float' 
-    | ID 
+    ('const'|'volatile'|'static')? ('unsigned'|'signed')? basicTypes ('*')? # primitiveType
+    | ID        # deviatedType
 ;
 
-varDecl: 
-    type ID ('=' expr)? ';' 
+basicTypes: 
+    ('short')? 'int' 
+    | 'short'
+    | 'long' ('long')?
+    | 'bool' 
+    | 'char'
+    | 'float'
+    | 'double'
+    | 'void'
 ;
 
 ifStmt: 
-    'if' '(' expr ')' block ('else' block)?
+    'if' '(' expr ')' stmt (elseStmt)?
+;
+
+elseStmt: 
+    'else' stmt
 ;
 
 whileStmt: 
-    'while' '(' expr ')' block
+    'while' '(' expr ')' stmt
 ;
 
 forStmt: 
-    'for' '(' (varDecl | expr ';')? expr? ';' expr? ')' block
-;
-
-forEachStmt: 
-    'for' '(' type ID ':' expr ')' block
+    'for' '(' varDecl? ';' expr? ';' expr? ')' stmt
 ;
 
 controlStmt:
@@ -70,14 +100,15 @@ controlStmt:
 ;
 
 stmt: 
-    varDecl 
+    varDecl
+    | typdefDecl
     | expr ';' 
     | ifStmt
     | whileStmt
     | forStmt
-    | forEachStmt
     | block
     | controlStmt
+    | PREPROCESSOR
 ;
 
 block: 
@@ -85,12 +116,13 @@ block:
 ;
 
 expr: 
-    expr '.' ID                          # memberAccess
+    ID                                   # varReference
+    | expr '.' ID                        # memberAccess
     | expr '.' ID '(' exprList? ')'      # methodCall
     | 'new' ID '(' exprList? ')'         # objectInstantiation
-    | ID '(' exprList? ')'               # functionCall
-    | 'this'                             # thisReference
     | 'super' '(' exprList? ')'          # superCall
+    | 'this' '.' expr                    # selfReference
+    | ID '(' exprList? ')'               # functionCall
     | expr '[' expr ']'                  # arrayAccess
     | '!' expr                           # notExpr
     | expr op=('*'|'/') expr             # mulDivExpr
@@ -100,11 +132,10 @@ expr:
     | expr '&&' expr                     # andExpr
     | expr '||' expr                     # orExpr
     | ID '=' expr                        # assignment
+    | ID '[' expr ']' '=' expr           # indexAssignment
     | literal                            # literalExpr
-    // | ID '++'                           # VarIncrement
-    // | ID '--'                           # VarDecrement
-    | ID                                 #VarReference
-    | '(' expr ')'                       #GroupedExpr
+    | '(' expr ')'                       # groupedExpr
+    | '(' type ')' expr                  # typeCast
 ;
 
 exprList: 
@@ -132,3 +163,12 @@ ID: [a-zA-Z_][a-zA-Z0-9_]*;
 WS: [ \t\r\n]+ -> skip;
 COMMENT: '/*' .*? '*/' -> skip;
 LINE_COMMENT: '//' ~[\r\n]* -> skip;
+
+// Sintaxe pre-compilador do c
+PREPROCESSOR: '#' ID (' ' | '\t')* ~[\r\n]*('\\\n')?
+    | '#' ID (' ' | '\t')* ~[\r\n]*('\\\r\n')?
+    | '#' ID (' ' | '\t')* ~[\r\n]*('\\\n\r')?
+    | '#' ID (' ' | '\t')* ~[\r\n]*('\\\n\r')?
+    | '#' ID (' ' | '\t')* ~[\r\n]*('\\\r')?
+    | '#' ID 
+;

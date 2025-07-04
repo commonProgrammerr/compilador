@@ -1,7 +1,5 @@
 // File: templates/class_decl.tmp.c
 
-#ifndef IMPEMENTATION_%(name)s_C
-#define IMPEMENTATION_%(name)s_C
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -31,4 +29,3 @@ void %(name)s_delete(%(name)s* this) {
         free(this);
     }
 }
-#endif // IMPEMENTATION_%(name)s_C
