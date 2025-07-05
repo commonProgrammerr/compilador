@@ -23,7 +23,7 @@ class Calculadora {
 void main() {
     Calculadora calc = new Calculadora();
     int resultado = calc.somar(5, 3);
-    // printf("O resultado é: %d\n", resultado); // Supondo uma função printf
+    printf("O resultado é: %d\n", resultado); // Supondo uma função printf
 }
 ```
 
@@ -42,21 +42,35 @@ void main() {
     - SugarcCodeGenerator: A classe que percorre a árvore de análise do ANTLR e, usando os metadados coletados, traduz as estruturas da linguagem Sugarc para o código C equivalente.
 
 ## Para Rodar o Projeto:
+Execute o script `dry_run.sh` para criar um ambiente virtual, instalar as dependências e compilar o código `teste.sugarc` na raiz do projeto.
+
+Apos isso, você pode executar o seguinte comando para compilar um arquivo Sugarc específico:
+
+```bash
+.venv/bin/python3 main.py <caminho_do_arquivo_sugarc>
+```
 
 ### Dependências
 
-- ANTLR4 v4.13.2 com Python
+- Python 3.12
+- antlr4-python3-runtime 4.13.2
+- antlr4-tools 0.2.2
+- install-jdk 1.1.0
+- pydantic 2.11.7
+- pyyaml 6.0.2
 
-#### Execute
+#### Execute para instalar as dependências fora do ambiente virtual:
+
 ```python
-pip install antlr4-python3-runtime
+pip install -r requirements.txt
 ```
-- Python v3.12
-- JDK v1.1.0
 
 ### Forma utilizando o uv
-```
-uv sync; uv run main.py <path_do_arquivo>
+voce pode utilizar o [uv](https://docs.astral.sh/uv/guides/install-python/) comom gerenciador de pacotes e ambiente virtual para rodar o projeto.
+
+```bash
+uv sync; # para instalar as dependências 
+uv run main.py <path_do_arquivo> # para rodar o compilador
 ```
 
 ## Grupo
