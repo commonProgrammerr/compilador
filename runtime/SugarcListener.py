@@ -35,6 +35,42 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SugarcParser#classContructorDecl.
+    def enterClassContructorDecl(self, ctx:SugarcParser.ClassContructorDeclContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#classContructorDecl.
+    def exitClassContructorDecl(self, ctx:SugarcParser.ClassContructorDeclContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#methodDecl.
+    def enterMethodDecl(self, ctx:SugarcParser.MethodDeclContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#methodDecl.
+    def exitMethodDecl(self, ctx:SugarcParser.MethodDeclContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#attributeDeclaration.
+    def enterAttributeDeclaration(self, ctx:SugarcParser.AttributeDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#attributeDeclaration.
+    def exitAttributeDeclaration(self, ctx:SugarcParser.AttributeDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#arrayAttributeDeclaration.
+    def enterArrayAttributeDeclaration(self, ctx:SugarcParser.ArrayAttributeDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#arrayAttributeDeclaration.
+    def exitArrayAttributeDeclaration(self, ctx:SugarcParser.ArrayAttributeDeclarationContext):
+        pass
+
+
     # Enter a parse tree produced by SugarcParser#functionDecl.
     def enterFunctionDecl(self, ctx:SugarcParser.FunctionDeclContext):
         pass
@@ -44,21 +80,30 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#field.
-    def enterField(self, ctx:SugarcParser.FieldContext):
+    # Enter a parse tree produced by SugarcParser#variableDeclaration.
+    def enterVariableDeclaration(self, ctx:SugarcParser.VariableDeclarationContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#field.
-    def exitField(self, ctx:SugarcParser.FieldContext):
+    # Exit a parse tree produced by SugarcParser#variableDeclaration.
+    def exitVariableDeclaration(self, ctx:SugarcParser.VariableDeclarationContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#method.
-    def enterMethod(self, ctx:SugarcParser.MethodContext):
+    # Enter a parse tree produced by SugarcParser#arrayDeclaration.
+    def enterArrayDeclaration(self, ctx:SugarcParser.ArrayDeclarationContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#method.
-    def exitMethod(self, ctx:SugarcParser.MethodContext):
+    # Exit a parse tree produced by SugarcParser#arrayDeclaration.
+    def exitArrayDeclaration(self, ctx:SugarcParser.ArrayDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#typdefDecl.
+    def enterTypdefDecl(self, ctx:SugarcParser.TypdefDeclContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#typdefDecl.
+    def exitTypdefDecl(self, ctx:SugarcParser.TypdefDeclContext):
         pass
 
 
@@ -80,21 +125,30 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#type.
-    def enterType(self, ctx:SugarcParser.TypeContext):
+    # Enter a parse tree produced by SugarcParser#primitiveType.
+    def enterPrimitiveType(self, ctx:SugarcParser.PrimitiveTypeContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#type.
-    def exitType(self, ctx:SugarcParser.TypeContext):
+    # Exit a parse tree produced by SugarcParser#primitiveType.
+    def exitPrimitiveType(self, ctx:SugarcParser.PrimitiveTypeContext):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#varDecl.
-    def enterVarDecl(self, ctx:SugarcParser.VarDeclContext):
+    # Enter a parse tree produced by SugarcParser#deviatedType.
+    def enterDeviatedType(self, ctx:SugarcParser.DeviatedTypeContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#varDecl.
-    def exitVarDecl(self, ctx:SugarcParser.VarDeclContext):
+    # Exit a parse tree produced by SugarcParser#deviatedType.
+    def exitDeviatedType(self, ctx:SugarcParser.DeviatedTypeContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#basicTypes.
+    def enterBasicTypes(self, ctx:SugarcParser.BasicTypesContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#basicTypes.
+    def exitBasicTypes(self, ctx:SugarcParser.BasicTypesContext):
         pass
 
 
@@ -104,6 +158,15 @@ class SugarcListener(ParseTreeListener):
 
     # Exit a parse tree produced by SugarcParser#ifStmt.
     def exitIfStmt(self, ctx:SugarcParser.IfStmtContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#elseStmt.
+    def enterElseStmt(self, ctx:SugarcParser.ElseStmtContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#elseStmt.
+    def exitElseStmt(self, ctx:SugarcParser.ElseStmtContext):
         pass
 
 
@@ -122,15 +185,6 @@ class SugarcListener(ParseTreeListener):
 
     # Exit a parse tree produced by SugarcParser#forStmt.
     def exitForStmt(self, ctx:SugarcParser.ForStmtContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#forEachStmt.
-    def enterForEachStmt(self, ctx:SugarcParser.ForEachStmtContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#forEachStmt.
-    def exitForEachStmt(self, ctx:SugarcParser.ForEachStmtContext):
         pass
 
 
@@ -176,6 +230,15 @@ class SugarcListener(ParseTreeListener):
 
     # Exit a parse tree produced by SugarcParser#block.
     def exitBlock(self, ctx:SugarcParser.BlockContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#selfReference.
+    def enterSelfReference(self, ctx:SugarcParser.SelfReferenceContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#selfReference.
+    def exitSelfReference(self, ctx:SugarcParser.SelfReferenceContext):
         pass
 
 
@@ -233,12 +296,48 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#thisReference.
-    def enterThisReference(self, ctx:SugarcParser.ThisReferenceContext):
+    # Enter a parse tree produced by SugarcParser#varReference.
+    def enterVarReference(self, ctx:SugarcParser.VarReferenceContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#thisReference.
-    def exitThisReference(self, ctx:SugarcParser.ThisReferenceContext):
+    # Exit a parse tree produced by SugarcParser#varReference.
+    def exitVarReference(self, ctx:SugarcParser.VarReferenceContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#shiftExpr.
+    def enterShiftExpr(self, ctx:SugarcParser.ShiftExprContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#shiftExpr.
+    def exitShiftExpr(self, ctx:SugarcParser.ShiftExprContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#groupedExpr.
+    def enterGroupedExpr(self, ctx:SugarcParser.GroupedExprContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#groupedExpr.
+    def exitGroupedExpr(self, ctx:SugarcParser.GroupedExprContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#typeCast.
+    def enterTypeCast(self, ctx:SugarcParser.TypeCastContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#typeCast.
+    def exitTypeCast(self, ctx:SugarcParser.TypeCastContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#stepSelfAssignment.
+    def enterStepSelfAssignment(self, ctx:SugarcParser.StepSelfAssignmentContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#stepSelfAssignment.
+    def exitStepSelfAssignment(self, ctx:SugarcParser.StepSelfAssignmentContext):
         pass
 
 
@@ -248,15 +347,6 @@ class SugarcListener(ParseTreeListener):
 
     # Exit a parse tree produced by SugarcParser#notExpr.
     def exitNotExpr(self, ctx:SugarcParser.NotExprContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#VarReference.
-    def enterVarReference(self, ctx:SugarcParser.VarReferenceContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#VarReference.
-    def exitVarReference(self, ctx:SugarcParser.VarReferenceContext):
         pass
 
 
@@ -278,12 +368,12 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#superCall.
-    def enterSuperCall(self, ctx:SugarcParser.SuperCallContext):
+    # Enter a parse tree produced by SugarcParser#selfAssignment.
+    def enterSelfAssignment(self, ctx:SugarcParser.SelfAssignmentContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#superCall.
-    def exitSuperCall(self, ctx:SugarcParser.SuperCallContext):
+    # Exit a parse tree produced by SugarcParser#selfAssignment.
+    def exitSelfAssignment(self, ctx:SugarcParser.SelfAssignmentContext):
         pass
 
 
@@ -296,6 +386,15 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SugarcParser#selfMethodCall.
+    def enterSelfMethodCall(self, ctx:SugarcParser.SelfMethodCallContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#selfMethodCall.
+    def exitSelfMethodCall(self, ctx:SugarcParser.SelfMethodCallContext):
+        pass
+
+
     # Enter a parse tree produced by SugarcParser#mulDivExpr.
     def enterMulDivExpr(self, ctx:SugarcParser.MulDivExprContext):
         pass
@@ -305,12 +404,12 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#GroupedExpr.
-    def enterGroupedExpr(self, ctx:SugarcParser.GroupedExprContext):
+    # Enter a parse tree produced by SugarcParser#indexAssignment.
+    def enterIndexAssignment(self, ctx:SugarcParser.IndexAssignmentContext):
         pass
 
-    # Exit a parse tree produced by SugarcParser#GroupedExpr.
-    def exitGroupedExpr(self, ctx:SugarcParser.GroupedExprContext):
+    # Exit a parse tree produced by SugarcParser#indexAssignment.
+    def exitIndexAssignment(self, ctx:SugarcParser.IndexAssignmentContext):
         pass
 
 

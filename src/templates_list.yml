@@ -1,0 +1,15 @@
+version: 1.0
+templates:
+  classDecl:
+    files:
+      header: templates/class_decl.tmp.h
+      source: templates/class_decl.tmp.c
+    depends:
+      - classContructorDecl
+      - classAttrDecl
+      - methodDecl
+
+  classContructorDecl:
+    files:
+      header: ''
+      source: templates/constructor.tmp.c
