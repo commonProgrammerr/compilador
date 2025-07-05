@@ -68,7 +68,7 @@ class DataHolder
 
   constructor(int size)
   {
-    malloc(this.values, size);
+    this.values = malloc(size);
   }
 
   void set(int index, int value)

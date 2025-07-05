@@ -20,6 +20,41 @@ class Calculadora {
     }
 }
 
+class MathUtil extends Calculadora  // Herança de Calculadora
+{
+  int square(int n)
+  {
+    return n * n;
+  }
+
+  int factorial(int n)
+  {
+    if (n <= 1)
+      return 1;
+    return n * this.factorial(n - 1);
+  }
+}
+
+class DataHolder
+{
+  int values[];
+
+  constructor(int size)
+  {
+    this.values = malloc(size);
+  }
+
+  void set(int index, int value)
+  {
+    this.values[index] = value;
+  }
+
+  int get(int index)
+  {
+    return this.values[index];
+  }
+}
+
 void main() {
     Calculadora calc = new Calculadora();
     int resultado = calc.somar(5, 3);
