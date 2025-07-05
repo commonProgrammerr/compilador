@@ -314,6 +314,15 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SugarcParser#shiftExpr.
+    def enterShiftExpr(self, ctx:SugarcParser.ShiftExprContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#shiftExpr.
+    def exitShiftExpr(self, ctx:SugarcParser.ShiftExprContext):
+        pass
+
+
     # Enter a parse tree produced by SugarcParser#groupedExpr.
     def enterGroupedExpr(self, ctx:SugarcParser.GroupedExprContext):
         pass
@@ -329,6 +338,15 @@ class SugarcListener(ParseTreeListener):
 
     # Exit a parse tree produced by SugarcParser#typeCast.
     def exitTypeCast(self, ctx:SugarcParser.TypeCastContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#stepSelfAssignment.
+    def enterStepSelfAssignment(self, ctx:SugarcParser.StepSelfAssignmentContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#stepSelfAssignment.
+    def exitStepSelfAssignment(self, ctx:SugarcParser.StepSelfAssignmentContext):
         pass
 
 
@@ -368,12 +386,30 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by SugarcParser#selfAssignment.
+    def enterSelfAssignment(self, ctx:SugarcParser.SelfAssignmentContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#selfAssignment.
+    def exitSelfAssignment(self, ctx:SugarcParser.SelfAssignmentContext):
+        pass
+
+
     # Enter a parse tree produced by SugarcParser#arrayAccess.
     def enterArrayAccess(self, ctx:SugarcParser.ArrayAccessContext):
         pass
 
     # Exit a parse tree produced by SugarcParser#arrayAccess.
     def exitArrayAccess(self, ctx:SugarcParser.ArrayAccessContext):
+        pass
+
+
+    # Enter a parse tree produced by SugarcParser#selfMethodCall.
+    def enterSelfMethodCall(self, ctx:SugarcParser.SelfMethodCallContext):
+        pass
+
+    # Exit a parse tree produced by SugarcParser#selfMethodCall.
+    def exitSelfMethodCall(self, ctx:SugarcParser.SelfMethodCallContext):
         pass
 
 

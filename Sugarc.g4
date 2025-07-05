@@ -39,10 +39,8 @@ Variáveis podem ser declaradas dentro de funções, classes ou globalmente,
 podem ser de tipos primitivos, arrays ou objetos, podem ser inicializadas.
 */
 varDecl: 
-    type ID ('=' expr)? ';'                          # variableDeclaration
-    // | type ID ('=' expr)? ',' varDecl               # multipleVariableDeclaration
+    type ID ('=' expr)? ';'                               # variableDeclaration
     | type ID '[' size=INT? ']' ';'                       # arrayDeclaration
-    | type ID '[' size=INT ']' '=' '{' exprList? '}' ';'  # arrayInitialization
 ;
 
 // Declarações de tipos
@@ -101,7 +99,7 @@ controlStmt:
 
 stmt: 
     varDecl
-    | typdefDecl
+    | typdefDecl // falta implemtar
     | expr ';' 
     | ifStmt
     | whileStmt
@@ -119,16 +117,19 @@ expr:
     ID                                   # varReference
     | expr '.' ID                        # memberAccess
     | expr '.' ID '(' exprList? ')'      # methodCall
+    | 'this' '.' ID '(' exprList? ')'    # selfMethodCall
     | 'new' ID '(' exprList? ')'         # objectInstantiation
-    | 'super' '(' exprList? ')'          # superCall
     | 'this' '.' expr                    # selfReference
     | ID '(' exprList? ')'               # functionCall
     | expr '[' expr ']'                  # arrayAccess
     | '!' expr                           # notExpr
+    | expr op=('<<'|'>>') expr           # shiftExpr
     | expr op=('*'|'/') expr             # mulDivExpr
     | expr op=('+'|'-') expr             # addSubExpr
     | expr op=('<'|'>'|'<='|'>=') expr   # relationalExpr
     | expr op=('=='|'!=') expr           # equalityExpr
+    | expr op=('*='|'/='|'+='|'-=') expr # selfAssignment
+    | expr op=('++'| '--')               # stepSelfAssignment
     | expr '&&' expr                     # andExpr
     | expr '||' expr                     # orExpr
     | ID '=' expr                        # assignment
@@ -147,7 +148,7 @@ literal:
     | FLOAT 
     | STRING 
     | BOOLEAN 
-    | 'null' 
+    | 'NULL' 
 ;
 
 // Tokens

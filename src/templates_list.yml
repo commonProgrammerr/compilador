@@ -2,8 +2,8 @@ version: 1.0
 templates:
   classDecl:
     files:
-      header: templates/class/class_decl.tmp.h
-      source: templates/class/class_decl.tmp.c
+      header: templates/class_decl.tmp.h
+      source: templates/class_decl.tmp.c
     depends:
       - classContructorDecl
       - classAttrDecl
@@ -11,5 +11,5 @@ templates:
 
   classContructorDecl:
     files:
-      header: /templates/class_constructor_decl.tmp.h
-      source: /templates/class_constructor_decl.tmp.c
+      header: ''
+      source: templates/constructor.tmp.c
