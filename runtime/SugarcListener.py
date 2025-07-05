@@ -98,15 +98,6 @@ class SugarcListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by SugarcParser#arrayInitialization.
-    def enterArrayInitialization(self, ctx:SugarcParser.ArrayInitializationContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#arrayInitialization.
-    def exitArrayInitialization(self, ctx:SugarcParser.ArrayInitializationContext):
-        pass
-
-
     # Enter a parse tree produced by SugarcParser#typdefDecl.
     def enterTypdefDecl(self, ctx:SugarcParser.TypdefDeclContext):
         pass
@@ -374,15 +365,6 @@ class SugarcListener(ParseTreeListener):
 
     # Exit a parse tree produced by SugarcParser#literalExpr.
     def exitLiteralExpr(self, ctx:SugarcParser.LiteralExprContext):
-        pass
-
-
-    # Enter a parse tree produced by SugarcParser#superCall.
-    def enterSuperCall(self, ctx:SugarcParser.SuperCallContext):
-        pass
-
-    # Exit a parse tree produced by SugarcParser#superCall.
-    def exitSuperCall(self, ctx:SugarcParser.SuperCallContext):
         pass
 
 
